@@ -31,9 +31,40 @@ export default {
   buildModules: [
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
   ],
+
+  axios: {
+    baseURL: 'https://dev-erpfit.risoma.ru/api/v1',
+  },
+
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push(
+        {
+          name: 'index',
+          path: '/',
+          component: resolve(__dirname, 'pages/index.vue')
+        },
+        {
+          name: 'login',
+          path: '/login',
+          component: resolve(__dirname, 'pages/login.vue')
+        },
+        {
+          name: 'register',
+          path: '/register',
+          component: resolve(__dirname, 'pages/register.vue')
+        },
+        {
+          name: 'posts',
+          path: '/posts',
+          component: resolve(__dirname, 'pages/posts.vue')
+        }
+      )
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
