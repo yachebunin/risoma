@@ -11,6 +11,7 @@
         <input type="password" v-model="password" id="password" required>
       </div>
       <button type="submit">Авторизоваться</button>
+      <p v-if="error">{{ error }}</p>
     </form>
   </div>
 </template>
@@ -21,6 +22,7 @@ export default {
     return {
       email: '',
       password: '',
+      error: ''
     }
   },
   methods: {
@@ -33,7 +35,7 @@ export default {
         localStorage.setItem('token', response.data.token);
         this.$router.push('/posts');
       } catch (error) {
-        console.error('Неудачная авторизация:', error);
+        this.error = 'Неудачная авторизация: ' + (error.response?.data?.message || error.message);
       }
     }
   }

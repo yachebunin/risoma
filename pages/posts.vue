@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  middleware: 'auth',
   data() {
     return {
       posts: [],
@@ -22,21 +23,15 @@ export default {
   },
   async mounted() {
     const token = localStorage.getItem('token');
-    console.log(token);
-    if (!token) {
-      this.$router.push('/login');
-    } else {
-      try {
-        const response = await this.$axios.get('/posts', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        this.posts = response.data;
-      } catch (error) {
-        console.error('Ошибка в запросе постов:', error);
-        // this.$router.push('/login');
-      }
+    try {
+      const response = await this.$axios.get('/posts', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      this.posts = response.data;
+    } catch (error) {
+      console.error('Ошибка в запросе постов:', error);
     }
   },
   methods: {
